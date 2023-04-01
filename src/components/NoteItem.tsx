@@ -28,42 +28,21 @@ const NoteItem: React.FC<INoteItemProps> = ({ id, text, tags }) => {
     setEditActive(!editActive);
   };
 
-  // const handleChangeNoteOnKeyDown: React.KeyboardEventHandler<
-  //   HTMLTextAreaElement
-  // > = (e) => {
-  //   e.key === "Enter" ? handleChangeNote() : null;
-  // };
-
   const onChange = (changeText: string) => setChangeText(changeText);
 
   return (
-    <div>
-      <div className="textarea">
-        <HighlightWithinTextarea
-          value={changeText}
-          onChange={onChange}
-          highlight="#I"
-        />
-      </div>
+    <div className="note-list__items">
       {editActive && editActive ? (
         <div className="textarea">
           <HighlightWithinTextarea
             value={changeText}
             onChange={onChange}
-            highlight="#I"
+            highlight={[...tags]}
+            placeholder={"Type any text"}
           />
         </div>
       ) : (
-        // <textarea
-        //   name=""
-        //   id=""
-        //   onChange={(e) => setChangeText(e.target.value)}
-        //   value={changeText}
-        //   cols={30}
-        //   rows={10}
-        //   onKeyDown={handleChangeNoteOnKeyDown}
-        // ></textarea>
-        <div>
+        <div className="item__text">
           <p>{text}</p>
 
           {tags && (
@@ -78,24 +57,30 @@ const NoteItem: React.FC<INoteItemProps> = ({ id, text, tags }) => {
         </div>
       )}
 
-      {editActive && editActive ? (
-        <button onClick={handleChangeNote}>Change</button>
-      ) : (
+      <div className="container__button">
+        {editActive && editActive ? (
+          <button className="btn" onClick={handleChangeNote}>
+            Change
+          </button>
+        ) : (
+          <button
+            className="btn"
+            onClick={() => {
+              setEditActive(!editActive);
+            }}
+          >
+            Edit
+          </button>
+        )}
         <button
+          className="btn"
           onClick={() => {
-            setEditActive(!editActive);
+            dispatch(removeNote(id));
           }}
         >
-          Edit
+          X
         </button>
-      )}
-      <button
-        onClick={() => {
-          dispatch(removeNote(id));
-        }}
-      >
-        X
-      </button>
+      </div>
     </div>
   );
 };

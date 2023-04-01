@@ -34,8 +34,8 @@ const InputElem: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <div>
+    <div className="note">
+      <div className="note__input">
         <input
           ref={inputRef}
           type={"text"}
@@ -44,12 +44,16 @@ const InputElem: React.FC = () => {
           onChange={handleChangeInput}
           onKeyDown={handleAddKeyDown}
         />
-        <button onClick={handleAddNote}>click</button>
+        <button className="btn" onClick={handleAddNote}>
+          click
+        </button>
       </div>
       {tags && (
-        <ul>
+        <ul className="note__tag-list">
           {tags.map((tag, id) => (
-            <li key={id}>{tag}</li>
+            <li key={id}>
+              <p>{tag}</p>
+            </li>
           ))}
         </ul>
       )}

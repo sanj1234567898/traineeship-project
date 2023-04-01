@@ -1,15 +1,18 @@
 import React from "react";
 import NoteItem from "./NoteItem";
-import { useAppSelector } from "../redux/hook";
+import { INote } from "@/types/data";
 
-const NotesList: React.FC = () => {
-  const notes = useAppSelector((state) => state.notes.items);
+interface INoteListProps {
+  notes: INote[];
+  flatFiltredNotes: INote[];
+}
 
+const NotesList: React.FC<INoteListProps> = ({ notes, flatFiltredNotes }) => {
   return (
-    <div>
-      {notes.map((note) => (
-        <NoteItem key={note.id} {...note} />
-      ))}
+    <div className="note-list">
+      {flatFiltredNotes.length > 0
+        ? flatFiltredNotes.map((note) => <NoteItem key={note.id} {...note} />)
+        : notes.map((note) => <NoteItem key={note.id} {...note} />)}
     </div>
   );
 };
