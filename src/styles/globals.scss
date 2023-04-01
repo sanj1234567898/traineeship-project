@@ -44,3 +44,11 @@ li {
   padding: 0 2rem;
   margin: 0 auto;
 }
+
+.textarea {
+  height: 40px;
+  border: 1px solid black;
+  text-align: left;
+  padding: 5px;
+  overflow: scroll;
+}
