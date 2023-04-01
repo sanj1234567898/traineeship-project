@@ -5,9 +5,18 @@ import { INote } from "@/types/data";
 import { validationTags } from "@/utils/validationTags";
 import HighlightWithinTextarea from "react-highlight-within-textarea";
 
-interface INoteItemProps extends INote {}
+interface INoteItemProps extends INote {
+  activeTags: Array<string>;
+  setActiveTag: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
-const NoteItem: React.FC<INoteItemProps> = ({ id, text, tags }) => {
+const NoteItem: React.FC<INoteItemProps> = ({
+  id,
+  text,
+  tags,
+  activeTags,
+  setActiveTag,
+}) => {
   const [changeText, setChangeText] = React.useState<string>(text);
   const [editActive, setEditActive] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -29,6 +38,11 @@ const NoteItem: React.FC<INoteItemProps> = ({ id, text, tags }) => {
   };
 
   const onChange = (changeText: string) => setChangeText(changeText);
+
+  const handleRemoveTagFromActiveTag = (text: string) => {
+    const tagFromText = text.split(" ").filter((str) => str.includes("#"))[0];
+    setActiveTag(activeTags.filter((tag) => tag !== tagFromText));
+  };
 
   return (
     <div className="note-list__items">
@@ -75,7 +89,7 @@ const NoteItem: React.FC<INoteItemProps> = ({ id, text, tags }) => {
         <button
           className="btn"
           onClick={() => {
-            dispatch(removeNote(id));
+            dispatch(removeNote(id)) && handleRemoveTagFromActiveTag(text);
           }}
         >
           X

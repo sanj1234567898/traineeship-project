@@ -10,9 +10,10 @@ import { INote } from "@/types/data";
 
 const Home: React.FC = () => {
   const notes = useAppSelector((state) => state.notes.items);
-  const allTags = notes.map((obj) => obj.tags).flat(1);
-  const AllUniqueTags = getUniqueTags(allTags);
+  const getAllTags = notes.map((obj) => obj.tags).flat(1);
+  const getAllUniqueTags = getUniqueTags(getAllTags);
   const [activeTags, setActiveTag] = React.useState<Array<string>>([]);
+  console.log("🚀 ~ file: index.tsx:16 ~ activeTags:", activeTags);
   const activeUniqueTags = getUniqueTags(activeTags);
 
   const filtredNotes: any = [];
@@ -34,11 +35,16 @@ const Home: React.FC = () => {
         <div className="container__inner">
           <div className="left-side">
             <InputElem />
-            <NotesList notes={notes} flatFiltredNotes={flatFiltredNotes} />
+            <NotesList
+              notes={notes}
+              flatFiltredNotes={flatFiltredNotes}
+              setActiveTag={setActiveTag}
+              activeTags={activeTags}
+            />
           </div>
           <div className="right-side">
             <TagsElem
-              AllUniqueTags={AllUniqueTags}
+              AllUniqueTags={getAllUniqueTags}
               setActiveTag={setActiveTag}
               activeTags={activeTags}
             />
