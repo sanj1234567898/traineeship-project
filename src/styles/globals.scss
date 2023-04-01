@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 62.5%;
+
+  --color-text: #fff;
+  --color-text-var: #000;
+
+  --color-background: #040404;
+
+  --font-family-R: "Roboto", sans-serif;
+
+  --calc-vw-30px: calc(1.5rem + 1.0416666vw);
+  --calc-vw-20px: calc(1rem + 0.69444vw);
+  // --calc-vw-18px: calc(0.9rem + 0.625vw);
+  --calc-vw-16px: calc(0.8rem + 0.5555vw);
+}
+
+body {
+  font-family: var(--font-family-R);
+  line-height: 1.7;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  font-size: var(--calc-vw-16px);
+}
+
+/* List Items */
+li {
+  list-style: none;
+}
+
+.container {
+  display: flex;
+
+  max-width: 148rem;
+  padding: 0 2rem;
+  margin: 0 auto;
+}
