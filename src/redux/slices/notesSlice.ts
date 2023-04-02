@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { INote } from "@/types/data";
+import { getFromLS, getNotesFromLS } from "@/utils/getNotesFromLS";
 
 interface INoteState {
   items: INote[];
@@ -18,7 +19,7 @@ interface IChangeNote {
 }
 
 const initialState: INoteState = {
-  items: [],
+  items: getFromLS("notes") ? getNotesFromLS() : [],
 };
 
 const notesSlice = createSlice({

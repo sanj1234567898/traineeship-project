@@ -9,11 +9,11 @@ import { getUniqueTags } from "@/utils/getUniqueValue";
 import { INote } from "@/types/data";
 
 const Home: React.FC = () => {
+  const isMounted = React.useRef(false);
   const notes = useAppSelector((state) => state.notes.items);
   const getAllTags = notes.map((obj) => obj.tags).flat(1);
   const getAllUniqueTags = getUniqueTags(getAllTags);
   const [activeTags, setActiveTag] = React.useState<Array<string>>([]);
-  console.log("🚀 ~ file: index.tsx:16 ~ activeTags:", activeTags);
   const activeUniqueTags = getUniqueTags(activeTags);
 
   const filtredNotes: any = [];
@@ -22,6 +22,14 @@ const Home: React.FC = () => {
     filtredNotes.unshift(filtredNote);
   }
   const flatFiltredNotes: INote[] = filtredNotes.flat(1);
+
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const json = JSON.stringify(notes);
+      localStorage.setItem("notes", json);
+    }
+    isMounted.current = true;
+  }, [notes]);
 
   return (
     <>
