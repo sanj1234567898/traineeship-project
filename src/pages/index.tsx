@@ -1,22 +1,29 @@
 import React from "react";
 import Head from "next/head";
-import Layout from "../components/Layout";
-import NotesList from "@/components/NotesList";
-import InputElem from "@/components/InputElem";
-import TagsElem from "@/components/TagsElem";
+
 import { useAppSelector } from "@/redux/hook";
+
 import { getUniqueTags } from "@/utils/getUniqueValue";
+
 import { INote } from "@/types/data";
 
+import {
+  Layout,
+  NotesList,
+  InputElem,
+  TagsElem,
+} from "@/components/everyComponent";
+
 const Home: React.FC = () => {
-  const isMounted = React.useRef(false);
+  const [activeTags, setActiveTag] = React.useState<Array<string>>([]);
   const notes = useAppSelector((state) => state.notes.items);
+  const isMounted = React.useRef(false);
+
   const getAllTags = notes.map((obj) => obj.tags).flat(1);
   const getAllUniqueTags = getUniqueTags(getAllTags);
-  const [activeTags, setActiveTag] = React.useState<Array<string>>([]);
   const activeUniqueTags = getUniqueTags(activeTags);
 
-  const filtredNotes: any = [];
+  const filtredNotes = [];
   for (let tag of activeUniqueTags) {
     const filtredNote = notes.filter((note) => note.tags.includes(tag));
     filtredNotes.unshift(filtredNote);

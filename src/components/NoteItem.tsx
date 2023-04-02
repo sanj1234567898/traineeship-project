@@ -1,8 +1,12 @@
 import React from "react";
+
 import { useAppDispatch } from "@/redux/hook";
 import { changeNote, removeNote } from "@/redux/slices/notesSlice";
+
 import { INote } from "@/types/data";
+
 import { validationTags } from "@/utils/validationTags";
+
 import HighlightWithinTextarea from "react-highlight-within-textarea";
 
 interface INoteItemProps extends INote {
